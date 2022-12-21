@@ -5,6 +5,9 @@
 
 ![image](https://user-images.githubusercontent.com/8517465/209014013-d9f558b4-bedc-4187-aa14-b679181debba.png)
 
+### You can also do this, if you know how GitHub works.
+![image](https://user-images.githubusercontent.com/8517465/209016080-f8f5acfe-2b9c-4d7b-b76d-70f92a3e7d2e.png)
+
 ### Then you open the folder 'PluginTemplate' as IntelliJ Project.
 
 ![image](https://user-images.githubusercontent.com/8517465/209013506-0c3a1c63-1fa8-4582-9ca4-737388936330.png)
