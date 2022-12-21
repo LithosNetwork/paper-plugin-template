@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- details about the project -->
+    <groupId>com.example.template</groupId> <!-- package name, must be equal to the package structure -->
+    <artifactId>PluginTemplate</artifactId> <!-- plugin name -->
+    <version>0.1-SNAPSHOT</version>
+
+    <properties>
+        <!-- java version -->
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+
+        <!-- for Minecraft version 1.19.3 -->
+        <versions.minecraft.minor>1.19.3</versions.minecraft.minor>
+        <versions.minecraft.major>1.19</versions.minecraft.major>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <plugin.class.main>Main</plugin.class.main> <!-- default class name, we use Main.java -->
+
+        <!-- the file name of the built jar -->
+        <name.jar>${project.name}-${project.version}</name.jar>
+    </properties>
+
+    <build>
+        <finalName>${name.jar}</finalName>
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <dependencyReducedPomLocation>${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
+                    <filters>
+                        <!-- do not include a META-INF in the jar -->
+                        <!-- this is not needed for Minecraft plugins -->
+                        <filter>
+                            <artifact>*:*</artifact>
+                            <excludes>
+                                <exclude>META-INF/**</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.0.2</version>
+                <executions>
+                    <!-- copy the built jar to the root directory -->
+                    <execution>
+                        <id>copy-files-on-build</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>.</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.build.directory}</directory>
+                                    <include>${name.jar}.jar</include>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <resources>
+            <!-- copy over everything from the resources folder into the jar, i.e. plugin.yml -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <targetPath>.</targetPath>
+            </resource>
+        </resources>
+    </build>
+
+    <repositories>
+        <!-- the repository to check for the paper api -->
+        <repository>
+            <id>paper-repo</id>
+            <url>https://repo.papermc.io/repository/maven-public/</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <!-- the dependency for the paper api -->
+        <dependency>
+            <groupId>io.papermc.paper</groupId>
+            <artifactId>paper-api</artifactId>
+            <version>${versions.minecraft.minor}-R0.1-SNAPSHOT</version>
+            <!-- we want the scope 'provided', so it won't include into the jar -->
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>

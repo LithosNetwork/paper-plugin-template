@@ -1,0 +1,9 @@
+main: '${project.groupId}.${plugin.class.main}'
+name: '${project.name}'
+version: '${project.version}'
+api-version: '${versions.minecraft.major}'
+commands:
+  jump-count:
+    usage: '/<command>'
+    aliases:
+      - 'total-jumps'
