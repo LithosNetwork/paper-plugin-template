@@ -5,5 +5,4 @@ api-version: '${versions.minecraft.major}'
 commands:
   jump-count:
     usage: '/<command>'
-    aliases:
-      - 'total-jumps'
+    aliases: ['total-jumps']
