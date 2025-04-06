@@ -6,8 +6,8 @@
 
     <!-- details about the project -->
     <groupId>com.example.template</groupId> <!-- package name, must be equal to the package structure -->
-    <artifactId>PluginTemplate</artifactId> <!-- plugin name -->
-    <version>0.1-SNAPSHOT</version>
+    <artifactId>paper-plugin-template</artifactId> <!-- plugin name -->
+    <version>0.1</version>
 
     <properties>
         <!-- java version -->
@@ -15,7 +15,7 @@
         <maven.compiler.target>21</maven.compiler.target>
 
         <!-- Minecraft version -->
-        <versions.minecraft.minor>1.21.1</versions.minecraft.minor>
+        <versions.minecraft.minor>1.21.5</versions.minecraft.minor>
         <versions.minecraft.major>1.21</versions.minecraft.major>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
